@@ -24,6 +24,7 @@ external_components:
 logger:
 
 api:
+  id: api_server
 
 ota:
   - platform: esphome
@@ -32,18 +33,11 @@ wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
 
-# ========== SPI 总线（避开 strapping pins）==========
+# ========== SPI 总线（ST7735S 彩色显示屏）==========
 spi:
   id: spi_bus
   clk_pin: GPIO4
   mosi_pin: GPIO3
-  # miso 不接（显示屏不需要读取数据）
-
-# ========== I2C 总线（保留）==========
-i2c:
-  - id: i2c_bus
-    scl: GPIO6
-    sda: GPIO5
 
 # ========== UART（C4002 雷达）==========
 uart:
@@ -83,15 +77,15 @@ font:
     glyphs: ${allowed_characters}
     ignore_missing_glyphs: true
 
-# ========== ST7735S 彩色显示屏（引脚已避开 strapping pins）==========
+# ========== ST7735S 彩色显示屏 ==========
 display:
   - platform: st7735
     id: tft_display
     model: INITR_18BLACKTAB
     spi_id: spi_bus
-    cs_pin: GPIO7        # 原 GPIO9 → GPIO7（安全引脚）
-    dc_pin: GPIO1        # 保持不变
-    reset_pin: GPIO0     # 原 GPIO2 → GPIO0（安全引脚）
+    cs_pin: GPIO7
+    dc_pin: GPIO1
+    reset_pin: GPIO0
     rotation: 0
     device_width: 128
     device_height: 160
@@ -131,7 +125,7 @@ display:
         it.printf(24, 60, id(cn_font), Color(255, 0, 0), "未知状态");
       }
       
-      // 底部状态条 - 使用 api_connected 替代 wifi_connected
+      // 底部状态条
       it.filled_rectangle(0, 150, 128, 10, Color(50, 50, 50));
       it.printf(2, 150, id(cn_font), Color::WHITE, "API:%s", 
                 (id(api_server).is_connected() ? "OK" : "--"));
@@ -190,7 +184,6 @@ text_sensor:
       name: "C4002 log"
       icon: "mdi:message-text-outline"
 
-  # WiFi 信息（可选）
   - platform: wifi_info
     ip_address:
       name: "IP Address"
