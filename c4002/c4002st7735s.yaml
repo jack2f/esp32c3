@@ -31,22 +31,18 @@ ota:
   - platform: esphome
 
 wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
+  ssid: "HHZX"
+  password: "123456789"
 
 # ========== SPI 总线（ST7735S 用）==========
 spi:
   id: spi_bus
   clk_pin: GPIO4
-  mosi_pin: GPIO3
+  mosi_pin: GPIO6
   miso_pin: GPIO8  # 显示屏一般不需要 MISO，但 SPI 组件要求配置
   # 或者如果不读数据，可以省略 miso
 
-# ========== I2C 总线（保留给 OLED 或其他设备）==========
-i2c:
-  - id: i2c_bus
-    scl: GPIO6
-    sda: GPIO5
+
 
 # ========== UART（C4002 雷达）==========
 uart:
@@ -98,7 +94,7 @@ display:
     # - INITR_18BLACKTAB（1.8寸常用）
     # - INITR_18REDTAB
     spi_id: spi_bus
-    cs_pin: GPIO0
+    cs_pin: GPIO9
     dc_pin: GPIO1
     reset_pin: GPIO2
     rotation: 0  # 0/90/180/270 度旋转
