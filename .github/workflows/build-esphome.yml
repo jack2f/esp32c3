@@ -35,9 +35,10 @@ jobs:
 
       # 步骤4：编译固件
       - name: 编译固件
+      working-directory: c4002
         run: |
           # 进入配置文件目录
-          cd c4002
+          #cd c4002
           # 编译固件，生成bin文件
           esphome compile c4002.yaml
 
