@@ -34,8 +34,8 @@ ota:
 
 # WiFi 设置
 wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
+  ssid: "HHZX"
+  password: "123456789"
 
 # UART配置
 uart:
