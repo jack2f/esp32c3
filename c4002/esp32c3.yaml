@@ -140,15 +140,15 @@ number:
     target_disappeard_delay_time:
       name: "Target Disappear Delay Time"
 
+# LED 灯 (GPIO7)
+output:
+  - platform: gpio
+	pin: GPIO10
+	id: led_output
 
-    # LED 灯 (GPIO7)
-    output:
-      - platform: gpio
-        pin: GPIO7
-        id: led_output
-
-    light:
-      - platform: binary
-        output: led_output
-        name: "LED灯"
-        id: led_light
+light:
+  - platform: binary
+	output: led_output
+	name: "LED灯"
+	id: led_light
+    
